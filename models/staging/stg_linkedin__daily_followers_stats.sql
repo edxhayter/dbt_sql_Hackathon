@@ -13,7 +13,7 @@ transformed as (
         follower_gains_organic_follower_gain as organic_follower_gain,	
         follower_gains_paid_follower_gain as paid_follower_gain,
         follower_gains_organic_follower_gain + follower_gains_paid_follower_gain as total_follower_gain,
-        organization_entity as org_id
+        replace(organization_entity, 'urn:li:organization:', '') as org_id
 
     from source
 

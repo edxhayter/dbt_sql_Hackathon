@@ -17,7 +17,7 @@ transformed as (
         like_count,
         impression_count,
         comment_count,
-        organization_entity as org_id
+        replace(organization_entity, 'urn:li:organization:', '') as org_id
 
     from source
 

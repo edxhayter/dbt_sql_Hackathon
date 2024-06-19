@@ -1,0 +1,141 @@
+version: 2
+
+models:
+  - name: stg_linkedin__org
+    columns:
+      - name: org_id
+        description: id field for organization - parsed from the raw table
+        tests:
+          - unique
+          - not_null
+      - name: founded_year
+        description: year the company was founded
+      - name: org_desc
+        description: description of the company on the page
+      - name: org_name
+        description: name of the company
+      - name: org_website
+        description: link to company website
+
+
+  - name: stg_linkedin__daily_followers_stats
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - stats_id
+            - stats_day
+    columns:
+      - name: stats_id
+        description: fivetranid that links back to posts
+      - name: stats_day
+        description: day the stats are for
+      - name: organic_follower_gain
+        description: followers naturally gained from a post
+      - name: paid_follower_gain
+        description: followers gained from paid placement of a post
+      - name: total_follower_gain
+        description: combined follower gain
+      - name: org_id
+        description: org that made the post
+
+
+  - name: stg_linkedin__daily_post_stats
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - stats_id
+            - stats_day
+    columns:
+      - name: stats_id
+        description: fivetranid that links back to posts
+      - name: stats_day
+        description: day the stats were captured on
+      - name: engagement
+        description: shows the number of interactions plus the number of clicks and followers acquired, divided by the number of impressions
+      - name: unique_impressions_count
+        description: the number of times the post was shown to unique signed in members
+      - name: share_count
+        description: the number of times the post was shared
+      - name: click_count
+        description: Shows the number of unique clicks on the post by a unique signed in member. 
+          This doesn't include interactions, such as reposts, reactions, and comments. 
+          If a member clicks on a document multiple times it will count as one click.
+      - name: like_count
+        description: shows the number of likes on a post
+      - name: impression_count
+        description: shows the number of times each post is visible for at least 300 milliseconds with at least 50 percent of the post in view
+          on a signed in member’s device screen or browser window.
+      - name: comment_count
+        description: shows the number of comments on a post
+      - name: org_id
+        description: shows the organization associated with the post.
+
+
+  - name: stg_linkedin__org_posts
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - org_id
+            - post_id
+    columns:
+      - name: org_id
+        description: id key for the organization associated with a post
+      - name: post_id
+        description: id key for the post made on linkedin
+
+
+  - name: stg_linkedin__post_content
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - stats_id
+            - post_id
+    columns:
+      - name: stats_id
+        description: fivetranid that links back to posts
+      - name: post_id	
+        description: id key for the post made on linkedin
+      - name: post_type
+        description: type of post e.g. multi-image, single image etc. Note multi-image info does not pull through and is stored in a seperate table not in the source database
+      - name: media_type
+        description: extract the media type from the original media_id
+      - name: media_id
+        description: if single piece of media then an id value for that piece of media
+      - name: media_title
+        description: title of the media attached to a post.
+
+
+  - name: stg_linkedin__post_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - post_id
+            - post_modified_time
+    columns:
+      - name: post_id
+        description: id key for the post made on linkedin
+      - name: post_modified_time
+        description: timestamp for when the post was modified - any modification generates a new row in this table
+      - name: author_type
+        description: type of author of post e.g. individual v. organization
+      - name: author_id
+        description: id in the original author field - if type = organization then org_id otherwise it will be an individual_id key
+      - name: post_text
+        description: text included in the post
+      - name: post_created_date
+        description: original date the post was created
+      - name: initial_publish_date
+        description: date the post was first published
+
+
+  - name: stg_linkedin__post_shares
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - post_id
+            - stats_id  
+    columns:
+      - name: stats_id
+        description: fivetranid that links back to posts
+      - name: post_id
+        description: id key for the post made on linkedin
