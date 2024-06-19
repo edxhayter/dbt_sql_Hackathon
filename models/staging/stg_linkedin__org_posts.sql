@@ -8,7 +8,7 @@ transformed as (
     select
 
         organization_id as org_id,
-        ugc_post_id as post_id
+        replace(ugc_post_id, 'urn:li:ugcPost:', '') as post_id
     
     from source
 

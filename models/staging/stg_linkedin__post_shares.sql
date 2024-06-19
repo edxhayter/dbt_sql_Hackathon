@@ -8,7 +8,7 @@ transformed as (
 
     select 
 
-        share_statistic_id as stats_id,
+        share_statistic_id as share_statistic_id,
         ugc_post_id as post_id
     
     from source
