@@ -133,9 +133,9 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - post_id
-            - stats_id  
+            - share_statistic_id  
     columns:
-      - name: stats_id
-        description: fivetranid that links back to posts
+      - name: share_statistic_id
+        description: id for other share tables not uploaded to warehouse
       - name: post_id
         description: id key for the post made on linkedin
