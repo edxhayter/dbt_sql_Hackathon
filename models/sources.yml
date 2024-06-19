@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: linkedin
+    database: SQL_HACKATHON
+    schema: LINKEDIN
+    tables:
+      - name: organization
+        description: >
+          1 row for each linkedin account, contains dimension information like website and company descriptor. id is the primary key.
+      - name: organization_ugc_post
+        description: >
+          ugc_post_id and organization_id combo is the primary key. 
+          organization_id is a foreign key to the organization table. ugc_post_id is a foreign key to the ugc_post_history table
+      - name: post_content
+        description: >
+          post_id is the primary key, contains media type info and the title of the media. Multi-image/media posts do not pull through on seperate lines potential improvement. 
+          post_id is also a foreign key to ugc_post_history
+      - name: time_bound_follower_statistic
+        description: >
+          combo of _fivetran_id and day is the primary key in this table, giving follower gains for an org on a given day attributable to a post.
+      - name: time_bound_share_statistic
+        description: >
+          combo of _fivetran_id and day is the primary key in this table. giving stats for a given post on a given day.
+      - name: ugc_post_history
+        description: >
+          1 row for each post id last modified date combo is the primary key, contains author information along with a commentary field that appears to be the post text.
+      - name: ugc_post_share_statistic
+        description: >
+          primary keys ugc_post_id and share statistics_id
+          both are foreign keys to other tables. ugc_post_id to the ugc_post_history table. sharestatistics_id is knwon elsewhere in the schema as _fivetran_id
+

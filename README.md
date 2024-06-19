@@ -1,15 +1,30 @@
-Welcome to your new dbt project!
+# sql Hackathon - Linkedin Challenge
 
-### Using the starter project
+## Brief
 
-Try running the following commands:
-- dbt run
-- dbt test
+### Key Asks
 
+- Analyze the performance of various types of LinkedIn content.
+- Understand the engagement metrics across different posts
+- Enhance content personalization and scheduling to maximize user interaction
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [dbt community](https://getdbt.com/community) to learn from other analytics engineers
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+### Key Metrics and Dimensions:
+
+- Post id, title, contents, publish date
+- Information Lab Page (Data School, TIL US, TIL)
+- Engagement Metrics: Click Count, Comment Count, Impression Count, Like Count, Share Count
+
+Additional Data (time_bound tables):
+- Daily Follow and engagement metrics by Information Lab Pages
+
+### Output
+
+- Series of 'mart' tables for an analyst to deliver insights on Linkedin data.
+
+## Plan
+
+- Assess the source files and in the sources.yml document information on the tables
+- Scope how the final tables will look (add a schema.yml file to describe the final tables)
+- Build Models incrementally (stage, intermediary, mart) to produce final tables
+- Review and consider any additional processes that can be added to the project (macros, tests and seeds)
+- Commit the project to the snowflake environment along with generating the dbt docs to accompany the project

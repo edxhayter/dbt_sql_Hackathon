@@ -1,0 +1,26 @@
+with source as (
+
+    select * from {{ source('linkedin', 'time_bound_share_statistic') }}
+
+),
+
+transformed as (
+
+    select
+
+        _fivetran_id as stats_id,
+        day as stats_day,
+        engagement,
+        unique_impressions_count,
+        share_count,
+        click_count,
+        like_count,
+        impression_count,
+        comment_count,
+        organization_entity as org_id
+
+    from source
+
+)
+
+select * from transformed
