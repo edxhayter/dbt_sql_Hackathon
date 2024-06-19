@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: linkedin
+    database: SQL_HACKATHON
+    schema: LINKEDIN
+    tables:
+      - name: organization
+        description: >
+          1 row for each linkedin account, contains dimension information like website and company descriptor. id is the primary key
+      - name: organization_ugc_post
+        description: >
+          1 row for each post UGC_POST_ID is the primary key, also associates a post with a company
+      - name: post_content
+        description: >
+          1 row for each post POST_ID is the primary key, contains media type info and the title of the media
+      - name: time_bound_follower_statistic
+      - name: time_bound_share_statistic
+      - name: ugc_post_history
+      - name: ugc_post_share_statistic
+
