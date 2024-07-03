@@ -4,6 +4,7 @@ sources:
   - name: linkedin
     database: SQL_HACKATHON
     schema: LINKEDIN
+    loader: Fivetran
     tables:
       - name: organization
         description: >
@@ -13,9 +14,9 @@ sources:
 
           organization_id is a foreign key to the organization table. ugc_post_id is a foreign key to the ugc_post_history table
       - name: post_content
-        description: >
+        description: |
           post_id is the primary key, contains media type info and the title of the media. Multi-image/media posts do not pull through on seperate lines potential improvement.
-          
+
           Post_id is also a foreign key to ugc_post_history
         columns:
           - name: _FIVETRAN_ID
@@ -41,6 +42,16 @@ sources:
       - name: time_bound_share_statistic
         description: >
           combo of _fivetran_id and day is the primary key in this table. giving stats for a given post on a given day.
+        loaded_at_field: _fivetran_synced
+        freshness:
+          warn_after:
+            period: day
+            count: 5
+        columns:
+          - name: _fivetran_id
+            tests:
+              - not_null
+              - unique
       - name: ugc_post_history
         description: >
           1 row for each post id last modified date combo is the primary key, contains author information along with a commentary field that appears to be the post text.
