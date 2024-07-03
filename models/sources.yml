@@ -9,8 +9,8 @@ sources:
         description: >
           1 row for each linkedin account, contains dimension information like website and company descriptor. id is the primary key.
       - name: organization_ugc_post
-        description: >
-          ugc_post_id and organization_id combo is the primary key. 
+        description: |
+          ugc_post_id and organization_id combo is the primary key.
           organization_id is a foreign key to the organization table. ugc_post_id is a foreign key to the ugc_post_history table
       - name: post_content
         description: >
@@ -29,4 +29,3 @@ sources:
         description: >
           primary keys ugc_post_id and share statistics_id
           both are foreign keys to other tables. ugc_post_id to the ugc_post_history table. sharestatistics_id is knwon elsewhere in the schema as _fivetran_id
-
