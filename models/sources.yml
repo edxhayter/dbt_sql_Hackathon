@@ -22,6 +22,8 @@ sources:
           - name: _FIVETRAN_ID
             description: >
               ID assigned from the _fivetran system that loads the data from linkedin
+            tests:
+                - not_empty_string
           - name: POST_ID
             description: |
               ID unique to the social media post
