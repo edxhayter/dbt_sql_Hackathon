@@ -1,5 +1,5 @@
 -- import cte
-with 
+with
 
 recent_post as (
 
@@ -22,10 +22,10 @@ content as (
 
 final as (
 
-    select 
+    select
 
         recent_post.*,
-        
+
         posts.post_text,
 
         content.stats_id,
@@ -33,11 +33,13 @@ final as (
         content.media_type,
         content.media_id,
         content.media_title
-    
+
     from recent_post
-    join posts on recent_post.post_id = posts.post_id and
-        recent_post.recent_edit = posts.post_modified_time
-    join content on recent_post.post_id = content.post_id
+    inner join posts
+        on
+            recent_post.post_id = posts.post_id
+            and recent_post.recent_edit = posts.post_modified_time
+    inner join content on recent_post.post_id = content.post_id
 
 )
 
