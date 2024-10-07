@@ -14,6 +14,8 @@ stats as (
 
 ),
 
+-- Join the stats table to the follower stats table on the stat_id and the stat_day
+
 final as (
 
     select 
